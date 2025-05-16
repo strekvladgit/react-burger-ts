@@ -7,9 +7,7 @@ import {
 
 import styles from './app-header.module.css';
 
-import type { FC } from 'react';
-
-export const AppHeader: FC = () => {
+export const AppHeader = (): JSX.Element => {
   return (
     <header className={styles.header}>
       <nav className={`${styles.menu} p-4`}>

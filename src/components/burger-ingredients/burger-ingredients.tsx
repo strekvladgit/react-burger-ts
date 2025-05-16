@@ -3,13 +3,14 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 
 import type { TIngredient } from '@utils/types';
-import type { FC } from 'react';
 
 type TBurgerIngredientsProps = {
   ingredients: TIngredient[];
 };
 
-export const BurgerIngredients: FC<TBurgerIngredientsProps> = ({ ingredients }) => {
+export const BurgerIngredients = ({
+  ingredients,
+}: TBurgerIngredientsProps): JSX.Element => {
   console.log(ingredients);
 
   return (

@@ -5,9 +5,7 @@ import { ingredients } from '@utils/ingredients';
 
 import styles from './app.module.css';
 
-import type { FC } from 'react';
-
-export const App: FC = () => {
+export const App = (): JSX.Element => {
   return (
     <div className={styles.app}>
       <AppHeader />
