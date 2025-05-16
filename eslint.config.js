@@ -60,12 +60,8 @@ export default tseslint.config(
           prefer: 'type-imports',
         },
       ],
-      '@typescript-eslint/explicit-function-return-type': [
-        'error',
-        {
-          allowExpressions: true,
-        },
-      ],
+      '@typescript-eslint/explicit-function-return-type': 'error',
+      '@typescript-eslint/explicit-module-boundary-types': 'error',
       '@typescript-eslint/no-import-type-side-effects': 'error',
       '@typescript-eslint/no-unused-expressions': [
         'error',
