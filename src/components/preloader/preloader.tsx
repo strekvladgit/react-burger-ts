@@ -1,7 +1,9 @@
 import styles from './preloader.module.css';
 
-export const Preloader = () => (
-	<div className={styles.preloader}>
-		<div className={styles.preloader_circle} />
-	</div>
+import type { FC } from 'react';
+
+export const Preloader: FC = () => (
+  <div className={styles.preloader}>
+    <div className={styles.preloader_circle} />
+  </div>
 );

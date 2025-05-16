@@ -1,32 +1,50 @@
-import React from 'react';
-import styles from './burger-ingredients.module.css';
-import { TIngredient } from '@utils/types.ts';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import styles from './burger-ingredients.module.css';
+
+import type { TIngredient } from '@utils/types';
+import type { FC } from 'react';
+
 type TBurgerIngredientsProps = {
-	ingredients: TIngredient[];
+  ingredients: TIngredient[];
 };
 
-export const BurgerIngredients = ({
-	ingredients,
-}: TBurgerIngredientsProps): React.JSX.Element => {
-	console.log(ingredients);
+export const BurgerIngredients: FC<TBurgerIngredientsProps> = ({ ingredients }) => {
+  console.log(ingredients);
 
-	return (
-		<section className={styles.burger_ingredients}>
-			<nav>
-				<ul className={styles.menu}>
-					<Tab value='bun' active={true} onClick={() => {}}>
-						Булки
-					</Tab>
-					<Tab value='main' active={false} onClick={() => {}}>
-						Начинки
-					</Tab>
-					<Tab value='sauce' active={false} onClick={() => {}}>
-						Соусы
-					</Tab>
-				</ul>
-			</nav>
-		</section>
-	);
+  return (
+    <section className={styles.burger_ingredients}>
+      <nav>
+        <ul className={styles.menu}>
+          <Tab
+            value='bun'
+            active={true}
+            onClick={() => {
+              /* TODO */
+            }}
+          >
+            Булки
+          </Tab>
+          <Tab
+            value='main'
+            active={false}
+            onClick={() => {
+              /* TODO */
+            }}
+          >
+            Начинки
+          </Tab>
+          <Tab
+            value='sauce'
+            active={false}
+            onClick={() => {
+              /* TODO */
+            }}
+          >
+            Соусы
+          </Tab>
+        </ul>
+      </nav>
+    </section>
+  );
 };

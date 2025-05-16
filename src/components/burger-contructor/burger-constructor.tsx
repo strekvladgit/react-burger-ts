@@ -1,15 +1,14 @@
-import { TIngredient } from '@utils/types.ts';
-import React from 'react';
 import styles from './burger-constructor.module.css';
 
+import type { TIngredient } from '@utils/types';
+import type { FC } from 'react';
+
 type TBurgerConstructorProps = {
-	ingredients: TIngredient[];
+  ingredients: TIngredient[];
 };
 
-export const BurgerConstructor = ({
-	ingredients,
-}: TBurgerConstructorProps): React.JSX.Element => {
-	console.log(ingredients);
+export const BurgerConstructor: FC<TBurgerConstructorProps> = ({ ingredients }) => {
+  console.log(ingredients);
 
-	return <section className={styles.burger_constructor}></section>;
+  return <section className={styles.burger_constructor}></section>;
 };
