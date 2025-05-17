@@ -51,7 +51,7 @@ export default tseslint.config(
       'unused-imports': unusedImports,
     },
     rules: {
-      'no-unused-vars': 'off',
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       '@typescript-eslint/consistent-type-imports': [
         'error',
         {
@@ -81,7 +81,6 @@ export default tseslint.config(
           varsIgnorePattern: '^_',
         },
       ],
-      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       'import/no-unresolved': 'error',
       'import/no-unused-modules': 'error',
       'import/order': [
