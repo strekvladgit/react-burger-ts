@@ -71,6 +71,7 @@ export default tseslint.config(
         },
       ],
       '@typescript-eslint/no-unused-imports': 'off',
+      'unused-imports/no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
@@ -115,7 +116,6 @@ export default tseslint.config(
       'react/jsx-uses-vars': 'error',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'unused-imports/no-unused-imports': 'error',
-      'unused-imports/no-unused-vars': 'off',
     },
     settings: {
       react: {
