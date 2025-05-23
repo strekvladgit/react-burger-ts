@@ -1,6 +1,8 @@
-export default {
+import type { Config } from 'stylelint';
+
+const config: Config = {
   extends: ['stylelint-config-standard'],
-  ignoreFiles: ['**/fonts/', '**/images/', 'storybook-static'],
+  ignoreFiles: ['**/fonts/', '**/images/'],
   plugins: ['stylelint-order'],
   rules: {
     'at-rule-empty-line-before': [
@@ -288,3 +290,5 @@ export default {
       '^[a-z][a-zA-Z0-9]*(-[a-zA-Z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(_[a-z0-9]+(-[a-z0-9]+)*)?(_[a-z0-9]+(-[a-z0-9]+)*)?$',
   },
 };
+
+export default config;
