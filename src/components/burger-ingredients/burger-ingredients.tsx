@@ -1,8 +1,8 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import styles from './burger-ingredients.module.css';
-
 import type { TIngredient } from '@utils/types';
+
+import styles from './burger-ingredients.module.css';
 
 type TBurgerIngredientsProps = {
   ingredients: TIngredient[];

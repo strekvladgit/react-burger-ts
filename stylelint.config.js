@@ -1,6 +1,5 @@
-import type { Config } from 'stylelint';
-
-const config: Config = {
+/** @type {import('stylelint').Config} */
+export default {
   extends: ['stylelint-config-standard'],
   ignoreFiles: ['**/fonts/', '**/images/'],
   plugins: ['stylelint-order'],
@@ -290,5 +289,3 @@ const config: Config = {
       '^[a-z][a-zA-Z0-9]*(-[a-zA-Z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(_[a-z0-9]+(-[a-z0-9]+)*)?(_[a-z0-9]+(-[a-z0-9]+)*)?$',
   },
 };
-
-export default config;

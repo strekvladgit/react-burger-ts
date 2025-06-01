@@ -1,6 +1,6 @@
-import styles from './burger-constructor.module.css';
-
 import type { TIngredient } from '@utils/types';
+
+import styles from './burger-constructor.module.css';
 
 type TBurgerConstructorProps = {
   ingredients: TIngredient[];
