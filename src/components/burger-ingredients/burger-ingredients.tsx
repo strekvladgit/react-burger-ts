@@ -1,4 +1,6 @@
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Tab } from '@krgaa/react-developer-burger-ui-components';
+
+import type { JSX } from 'react';
 
 import type { TIngredient } from '@utils/types';
 

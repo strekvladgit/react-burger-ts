@@ -3,7 +3,9 @@ import {
   ListIcon,
   Logo,
   ProfileIcon,
-} from '@ya.praktikum/react-developer-burger-ui-components';
+} from '@krgaa/react-developer-burger-ui-components';
+
+import type { JSX } from 'react';
 
 import styles from './app-header.module.css';
 
