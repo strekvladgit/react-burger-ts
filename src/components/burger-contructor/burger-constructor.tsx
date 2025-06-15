@@ -1,6 +1,5 @@
-import type { JSX } from 'react';
-
 import type { TIngredient } from '@utils/types';
+import type { JSX } from 'react';
 
 import styles from './burger-constructor.module.css';
 

@@ -1,8 +1,7 @@
 import { Tab } from '@krgaa/react-developer-burger-ui-components';
 
-import type { JSX } from 'react';
-
 import type { TIngredient } from '@utils/types';
+import type { JSX } from 'react';
 
 import styles from './burger-ingredients.module.css';
 
