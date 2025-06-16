@@ -3,11 +3,9 @@ import { BurgerConstructor } from '@components/burger-contructor/burger-construc
 import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients';
 import { ingredients } from '@utils/ingredients';
 
-import type { JSX } from 'react';
-
 import styles from './app.module.css';
 
-export const App = (): JSX.Element => {
+export const App = (): React.JSX.Element => {
   return (
     <div className={styles.app}>
       <AppHeader />

@@ -1,7 +1,6 @@
 import { Tab } from '@krgaa/react-developer-burger-ui-components';
 
 import type { TIngredient } from '@utils/types';
-import type { JSX } from 'react';
 
 import styles from './burger-ingredients.module.css';
 
@@ -11,7 +10,7 @@ type TBurgerIngredientsProps = {
 
 export const BurgerIngredients = ({
   ingredients,
-}: TBurgerIngredientsProps): JSX.Element => {
+}: TBurgerIngredientsProps): React.JSX.Element => {
   console.log(ingredients);
 
   return (
