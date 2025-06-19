@@ -17,18 +17,22 @@
     "prepare": "husky",
     "prettier": "prettier \"./src/**/*.{js,jsx,ts,tsx,json,html,css,md}\" --write",
     "preview": "vite preview",
-    "stylelint": "stylelint \"src/**/*.css\" --fix",
+    "stylelint": "stylelint \"src/**/*.{css,scss}\" --fix",
     "test": "vitest",
     "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@babel/runtime": "^7.27.6",
     "@krgaa/react-developer-burger-ui-components": "^1.0.0",
+    "@reduxjs/toolkit": "^2.8.2",
     "core-js": "^3.43.0",
     "lodash-es": "^4.17.21",
     "prop-types": "^15.8.1",
     "react": "^19.1.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^19.1.0",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.2"
   },
   "devDependencies": {
@@ -38,8 +42,6 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.1.7",
     "@types/react-dom": "^19.1.6",
-    "@typescript-eslint/eslint-plugin": "^8.34.0",
-    "@typescript-eslint/parser": "^8.34.0",
     "@vitejs/plugin-react": "^4.5.2",
     "@vitest/browser": "^3.2.3",
     "@vitest/ui": "^3.2.3",
