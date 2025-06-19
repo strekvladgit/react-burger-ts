@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:5173',
-    async setupNodeEvents(on, config) {
+    async setupNodeEvents(_, config) {
       const { register } = await import('ts-node');
       register({
         transpileOnly: true,
@@ -16,11 +16,5 @@ export default defineConfig({
 
       return config;
     },
-  },
-  component: {
-    devServer: {
-      framework: 'react',
-      bundler: 'vite',
-    },
-  },
+  }
 });
