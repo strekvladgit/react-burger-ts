@@ -18,7 +18,7 @@ export const BurgerIngredients = ({
       <nav>
         <ul className={styles.menu}>
           <Tab
-            value='bun'
+            value="bun"
             active={true}
             onClick={() => {
               /* TODO */
@@ -27,7 +27,7 @@ export const BurgerIngredients = ({
             Булки
           </Tab>
           <Tab
-            value='main'
+            value="main"
             active={false}
             onClick={() => {
               /* TODO */
@@ -36,7 +36,7 @@ export const BurgerIngredients = ({
             Начинки
           </Tab>
           <Tab
-            value='sauce'
+            value="sauce"
             active={false}
             onClick={() => {
               /* TODO */
