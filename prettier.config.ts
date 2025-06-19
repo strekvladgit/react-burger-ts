@@ -2,7 +2,7 @@ import type { Config } from 'prettier';
 
 const config: Config = {
   endOfLine: 'lf',
-  jsxSingleQuote: true,
+  jsxSingleQuote: false,
   printWidth: 89,
   semi: true,
   singleQuote: true,
