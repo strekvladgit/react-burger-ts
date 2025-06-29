@@ -1,0 +1,15 @@
+.wrap {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.ingredient_properties {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nutritional_value {
+  width: 100%;
+  max-width: 120px;
+  text-align: center;
+}

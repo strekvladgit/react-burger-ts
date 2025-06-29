@@ -12,3 +12,16 @@ export type TIngredient = {
   image_mobile: string;
   __v: number;
 };
+
+export type TModal = {
+  title?: string;
+  children: React.JSX.Element | string;
+  onClose?: () => void;
+  extraClass?: string;
+};
+
+export type TApiResponse<T> = {
+  success: boolean;
+  data: T;
+  message?: string;
+};

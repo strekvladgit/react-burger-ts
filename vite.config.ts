@@ -26,6 +26,7 @@ export default defineConfig({
       '@services': path.resolve(__dirname, './src/utils'),
       '@pages': path.resolve(__dirname, './src/pages'),
       '@utils': path.resolve(__dirname, './src/utils'),
+      '@images': path.resolve(__dirname, './public/images'),
     },
   },
   test: {
