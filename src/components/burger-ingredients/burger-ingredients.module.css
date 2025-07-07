@@ -13,3 +13,14 @@
   text-align: center;
   list-style-type: none;
 }
+
+.burger_ingredients_container {
+  overflow: hidden scroll;
+  scrollbar-gutter: stable;
+}
+
+.burger_ingredients_grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 32px 24px;
+}
