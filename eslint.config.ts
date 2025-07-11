@@ -53,6 +53,7 @@ export default tseslint.config(
       'unused-imports': unusedImports,
     },
     rules: {
+      'prettier/prettier': ['error', { 'proseWrap': 'preserve' }],
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       '@typescript-eslint/consistent-type-imports': [
         'error',
@@ -107,8 +108,7 @@ export default tseslint.config(
             'side-effect-style',
             'style',
           ],
-          internalPattern: ['^@components/', '^@services/', '^@pages/', '^@utils/'],
-          newlinesBetween: 'always',
+          internalPattern: ['^@components/', '^@services/', '^@pages/', '^@utils/']
         },
       ],
       'react/jsx-uses-react': 'off',

@@ -25,3 +25,7 @@ export type TApiResponse<T> = {
   data: T;
   message?: string;
 };
+
+export type TConstructorIngredients = TIngredient & {
+  _key?: string;
+};
