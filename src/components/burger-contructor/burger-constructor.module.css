@@ -6,19 +6,6 @@
   color: var(--text-primary-color);
 }
 
-.burder_constructor_wrap {
-  display: flex;
-  flex-direction: column;
-  height: calc(100% - 120px);
-}
-
-.burger_constructor_scroll {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  overflow-y: auto;
-}
-
 .burger_constructor_footer {
   display: flex;
   justify-content: flex-end;
