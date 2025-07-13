@@ -1,12 +1,11 @@
+import { getOrderNum } from '@/services/store/order/reducers';
 import done from '@images/done.svg';
+import { useSelector } from 'react-redux';
 
 import styles from './order-details.module.css';
 
-export type TModalOrderInfo = {
-  orderId: string;
-};
-
-const OrderDetails = ({ orderId }: TModalOrderInfo): React.JSX.Element => {
+const OrderDetails = (): React.JSX.Element => {
+  const orderId = useSelector(getOrderNum);
   return (
     <div className={styles.modal_wrap}>
       <h2 className="text text_type_digits-large mt-2">{orderId}</h2>

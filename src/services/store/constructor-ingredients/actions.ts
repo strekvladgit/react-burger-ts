@@ -23,6 +23,14 @@ export const deleteIngredient = createAction(
   }
 );
 
-export const countTotalPrice = createAction(
-  'constructorIngredients/setTotalPrice'
+export const moveIngredient = createAction(
+  'constructorIngredients/moveIngredient',
+  (dragIndex: number, hoverIndex: number) => {
+    return {
+      payload: {
+        dragIndex,
+        hoverIndex,
+      },
+    };
+  }
 );

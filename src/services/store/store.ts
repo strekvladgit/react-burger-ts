@@ -3,11 +3,13 @@ import { combineSlices, configureStore } from '@reduxjs/toolkit';
 import { constructorSlice } from './constructor-ingredients/reducers';
 import { currentIngredientSlice } from './current-ingredient/reducers';
 import { ingredientsSlice } from './ingredients/reducers';
+import { orderSlice } from './order/reducers';
 
 const rootReducer = combineSlices(
   ingredientsSlice,
   currentIngredientSlice,
-  constructorSlice
+  constructorSlice,
+  orderSlice
 );
 
 export const store = configureStore({

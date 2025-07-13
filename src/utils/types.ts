@@ -20,12 +20,29 @@ export type TModal = {
   extraClass?: string;
 };
 
-export type TApiResponse<T> = {
+export type TIngredientsResponse<T> = {
   success: boolean;
   data: T;
   message?: string;
 };
 
+export type TOrderResponse = {
+  success: true;
+  order: {
+    number: number;
+  };
+  name: string;
+};
+
+export type TOrderData = {
+  ingredients: string[];
+};
+
+export type TAsyncAction<T> = {
+  payload: T;
+};
+
 export type TConstructorIngredients = TIngredient & {
   _key?: string;
+  index?: number;
 };

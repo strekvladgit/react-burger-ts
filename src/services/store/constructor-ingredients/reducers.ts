@@ -1,35 +1,30 @@
-import { mockIngredients } from '@/utils/ingredients';
 import { createSlice } from '@reduxjs/toolkit';
 
-import { addIngredient, deleteIngredient, countTotalPrice } from './actions';
+import { addIngredient, deleteIngredient, moveIngredient } from './actions';
 
 import type { TConstructorIngredients } from '@/utils/types';
 
 type TConstructorState = {
   bun: TConstructorIngredients | null;
   otherIngredients: TConstructorIngredients[];
-  totalPrice: number;
 };
 
 const initialState: TConstructorState = {
-  bun: mockIngredients.find((ingredient) => ingredient.type === 'bun') ?? null,
-  otherIngredients: mockIngredients.filter(
-    (ingredient) => ingredient.type !== 'bun'
-  ),
-  totalPrice: 0,
+  bun: null,
+  otherIngredients: [],
 };
 
 export const constructorSlice = createSlice({
   name: 'constructorIngredients',
   initialState,
   selectors: {
-    getConstructorIngredients: (state) => [
-      state.bun,
-      ...state.otherIngredients,
-    ],
+    getConstructorIngredients: (state): TConstructorIngredients[] => {
+      return state.bun
+        ? [state.bun, ...state.otherIngredients]
+        : state.otherIngredients;
+    },
     getConstructorBuns: (state) => state.bun,
     getConstructorOthers: (state) => state.otherIngredients,
-    getTotalPrice: (state) => state.totalPrice,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -39,7 +34,7 @@ export const constructorSlice = createSlice({
         if (type === 'bun') {
           state.bun = action.payload;
         } else {
-          state.otherIngredients.push(action.payload);
+          state.otherIngredients?.push(action.payload);
         }
       })
       .addCase(deleteIngredient, (state, action) => {
@@ -47,13 +42,13 @@ export const constructorSlice = createSlice({
           (ingredient) => ingredient._key !== action.payload
         );
       })
-      .addCase(countTotalPrice, (state) => {
-        const bunPrice = state.bun ? state.bun.price : 0;
-        const otherIngredientsPrice = state.otherIngredients.reduce(
-          (total, ingredient) => total + ingredient.price,
-          0
-        );
-        state.totalPrice = bunPrice + otherIngredientsPrice;
+      .addCase(moveIngredient, (state, action) => {
+        const { dragIndex, hoverIndex } = action.payload;
+        const dragIngredient = state.otherIngredients[dragIndex];
+        const newIngredients = [...state.otherIngredients];
+        newIngredients.splice(dragIndex, 1);
+        newIngredients.splice(hoverIndex, 0, dragIngredient);
+        state.otherIngredients = newIngredients;
       });
   },
 });
@@ -62,5 +57,4 @@ export const {
   getConstructorIngredients,
   getConstructorBuns,
   getConstructorOthers,
-  getTotalPrice,
 } = constructorSlice.selectors;

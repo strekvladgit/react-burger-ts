@@ -1,17 +1,14 @@
 import { useAppDispatch } from '@/hooks/useAppDispatch';
-import {
-  addIngredient,
-  countTotalPrice,
-} from '@/services/store/constructor-ingredients/actions';
+import { addIngredient } from '@/services/store/constructor-ingredients/actions';
 import {
   getConstructorBuns,
   getConstructorOthers,
 } from '@/services/store/constructor-ingredients/reducers';
-import { useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import { useSelector } from 'react-redux';
 
 import ConstructorIngredient from '../constructor-ingredient/constructor-ingredient';
+import ConstructorSpace from '../constructor-space/constructor-space';
 
 import type { TConstructorIngredients, TIngredient } from '@/utils/types';
 import type { Ref } from 'react';
@@ -24,28 +21,37 @@ const ConstructorList = (): React.JSX.Element => {
   const buns = useSelector(getConstructorBuns);
   const otherIngredients = useSelector(getConstructorOthers);
 
-  const [, dropTarget] = useDrop<TIngredient>({
+  const [{ Item }, dropTarget] = useDrop<
+    TIngredient,
+    void,
+    { Item: TIngredient | null }
+  >({
     accept: 'ingredients',
     drop(item) {
       void dispatch(addIngredient(item));
     },
+    collect: (monitor) => ({
+      Item: monitor.getItem(),
+    }),
   });
 
-  useEffect(() => {
-    void dispatch(countTotalPrice());
-  }, [dispatch, buns, otherIngredients]);
-
   const renderIngredients = (
-    elements: TConstructorIngredients[]
-  ): React.JSX.Element[] => {
+    elements: TConstructorIngredients[] | null
+  ): React.JSX.Element[] | null => {
+    if (!elements?.length) {
+      return null;
+    }
     return elements.map(
-      (element: TConstructorIngredients): React.JSX.Element => {
+      (element: TConstructorIngredients, index: number): React.JSX.Element => {
         return (
           <ConstructorIngredient
             {...element}
             key={element._key}
             _key={element._key}
             isLocked={false}
+            extraClass={`${Item && Item.type !== 'bun' ? styles.hover : ''}`}
+            index={index}
+            isDraggable={true}
           />
         );
       }
@@ -54,23 +60,31 @@ const ConstructorList = (): React.JSX.Element => {
 
   const otherIngredientsRendered = renderIngredients(otherIngredients);
   const bunsRendered = [
-    buns && (
+    buns ? (
       <ConstructorIngredient
         {...buns}
         text={`${buns.name} (верх)`}
         _key={buns._key}
         elementType="top"
         isLocked={true}
+        extraClass={`${Item && Item.type === 'bun' ? styles.hover : ''}`}
+        isDraggable={false}
       />
+    ) : (
+      <ConstructorSpace text="Выберите булку" type="top" />
     ),
-    buns && (
+    buns ? (
       <ConstructorIngredient
         {...buns}
         text={`${buns.name} (низ)`}
         _key={buns._key}
         elementType="bottom"
         isLocked={true}
+        extraClass={`${Item && Item.type === 'bun' ? styles.hover : ''}`}
+        isDraggable={false}
       />
+    ) : (
+      <ConstructorSpace text="Выберите булку" type="bottom" />
     ),
   ];
 
@@ -78,7 +92,9 @@ const ConstructorList = (): React.JSX.Element => {
     <>
       {bunsRendered[0]}
       <div className={`${styles.constructor_scroll} mt-4 mb-4`}>
-        {otherIngredientsRendered}
+        {otherIngredientsRendered ?? (
+          <ConstructorSpace text="Выберите ингридиент" />
+        )}
       </div>
       {bunsRendered[1]}
     </>
