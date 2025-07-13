@@ -1,54 +1,57 @@
-import type { TIngredient } from '@/utils/types';
+import { getCurrentIngredient } from '@/services/store/current-ingredient/reducers';
+import { useSelector } from 'react-redux';
 
 import styles from './ingredient-details.module.css';
 
-export type TModalIngredientInfo = TIngredient & {
-  onClose?: () => void;
-};
+const IngredientDetails = (): React.JSX.Element => {
+  const ingredient = useSelector(getCurrentIngredient);
 
-const IngredientDetails = ({
-  name,
-  image,
-  image_large,
-  image_mobile,
-  calories,
-  fat,
-  proteins,
-  carbohydrates,
-}: TModalIngredientInfo): React.JSX.Element => {
   return (
     <div className={styles.wrap}>
       <div className="pl-5 pr-5">
         <picture>
-          <source srcSet={image_mobile} media="(max-width: 768px)" />
-          <source srcSet={image_large} media="(min-width: 769px)" />
-          <img src={image} alt={name} />
+          <source
+            srcSet={ingredient?.image_mobile}
+            media="(max-width: 768px)"
+          />
+          <source srcSet={ingredient?.image_large} media="(min-width: 769px)" />
+          <img src={ingredient?.image} alt={ingredient?.name} />
         </picture>
       </div>
-      <p className="mt-4 mb-8 text text_type_main-medium text-center">{name}</p>
+      <p className="mt-4 mb-8 text text_type_main-medium text-center">
+        {ingredient?.name}
+      </p>
       <div className={styles.ingredient_properties}>
         <div className={styles.nutritional_value}>
-          <p className="text text_type_main-default text_color_inactive">Калории,ккал</p>
+          <p className="text text_type_main-default text_color_inactive">
+            Калории,ккал
+          </p>
           <p className="text text_type_digits-default text_color_inactive mt-2 mb-5">
-            {calories}
+            {ingredient?.calories}
           </p>
         </div>
         <div className={styles.nutritional_value}>
-          <p className="text text_type_main-default text_color_inactive">Белки, г</p>
+          <p className="text text_type_main-default text_color_inactive">
+            Белки, г
+          </p>
           <p className="text text_type_digits-default text_color_inactive mt-2 mb-5">
-            {proteins}
+            {ingredient?.proteins}
           </p>
         </div>
         <div className={styles.nutritional_value}>
-          <p className="text text_type_main-default text_color_inactive">Жиры, г</p>
+          <p className="text text_type_main-default text_color_inactive">
+            Жиры, г
+          </p>
           <p className="text text_type_digits-default text_color_inactive mt-2 mb-5">
-            {fat}
+            {ingredient?.fat}
           </p>
         </div>
         <div className={styles.nutritional_value}>
-          <p className="text text_type_main-default text_color_inactive">Углеводы, г</p>
+          <p className="text text_type_main-default text_color_inactive">
+            Углеводы, г
+          </p>
           <p className="text text_type_digits-default text_color_inactive mt-2 mb-5">
-            {carbohydrates}
+            {ingredient?.carbohydrates}
           </p>
         </div>
       </div>

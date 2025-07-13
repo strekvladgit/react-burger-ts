@@ -1,89 +1,63 @@
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { getConstructorIngredients } from '@/services/store/constructor-ingredients/reducers';
+import { sendOrder } from '@/services/store/order/actions';
+import { getOrderLoading } from '@/services/store/order/reducers';
 import currencyImage from '@images/currency.svg';
-import { Button, ConstructorElement } from '@krgaa/react-developer-burger-ui-components';
-import { useState } from 'react';
+import { Button } from '@krgaa/react-developer-burger-ui-components';
+import { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import Modal from '../modal/modal';
+import ConstructorList from './constructor-list/constructor-list';
 import OrderDetails from './order-details/order-details';
 
-import type { TIngredient } from '@utils/types';
+import type { TOrderData } from '@/utils/types';
 
 import styles from './burger-constructor.module.css';
 
-type TBurgerConstructorProps = {
-  ingredients: TIngredient[];
-};
-
-export const BurgerConstructor = ({
-  ingredients,
-}: TBurgerConstructorProps): React.JSX.Element => {
+export const BurgerConstructor = (): React.JSX.Element => {
+  const dispatch = useAppDispatch();
+  const ingredients = useSelector(getConstructorIngredients);
+  const isLoading = useSelector(getOrderLoading);
   const [modalToggle, setModalToggle] = useState<boolean>(false);
 
-  const handleClick = (): void => {
+  const handleSubmit = (): void => {
+    if (!ingredients.length) {
+      return;
+    }
+    const dataIngredients = ingredients.reduce<TOrderData>(
+      (result, ingredient) => {
+        console.log(ingredient);
+        result.ingredients.push(ingredient._id);
+        return result;
+      },
+      {
+        ingredients: [],
+      }
+    );
+    dataIngredients.ingredients.push(ingredients[0]._id);
+
+    void dispatch(sendOrder(dataIngredients));
+  };
+
+  const toggleModal = (): void => {
     setModalToggle(!modalToggle);
   };
 
-  const renderIngredients = (): React.JSX.Element => {
-    const buns: React.JSX.Element[] = [];
-    const otherIngredients: React.JSX.Element[] = [];
-
-    ingredients.forEach(({ _id, type, name, price, image }) => {
-      if (type === 'bun') {
-        buns[0] = (
-          <div key={_id}>
-            <ConstructorElement
-              type="top"
-              isLocked={true}
-              text={`${name} (верх)`}
-              price={price}
-              thumbnail={image}
-            />
-          </div>
-        );
-        buns[1] = (
-          <div key={`${_id}_2`}>
-            <ConstructorElement
-              type="bottom"
-              isLocked={true}
-              text={`${name} (низ)`}
-              price={price}
-              thumbnail={image}
-            />
-          </div>
-        );
-      } else {
-        otherIngredients.push(
-          <div key={_id}>
-            <ConstructorElement text={name} price={price} thumbnail={image} />
-          </div>
-        );
-      }
-    });
-
-    return (
-      <>
-        {buns[0]}
-        <div className={`${styles.burger_constructor_scroll} mt-4 mb-4`}>
-          {otherIngredients}
-        </div>
-        {buns[1]}
-      </>
+  const countTotalPrice = useMemo(() => {
+    return ingredients.reduce<number>(
+      (total, ingredient) => total + ingredient.price,
+      0
     );
-  };
-
-  const calcTotal = (): number => {
-    return ingredients.reduce((sum, { price }) => sum + price, 0);
-  };
-
-  const renderedIngredients = renderIngredients();
-  const totalPrice = calcTotal();
+  }, [ingredients]);
 
   return (
     <>
       <section className={styles.burger_constructor}>
-        <div className={styles.burder_constructor_wrap}>{renderedIngredients}</div>
+        <ConstructorList />
         <div className={`${styles.burger_constructor_footer} mt-10`}>
           <div className={styles.burger_constructor_total}>
-            <p className="text text_type_digits-medium">{totalPrice}</p>
+            <p className="text text_type_digits-medium">{countTotalPrice}</p>
             <img
               className={styles.burger_constructor_currency}
               src={currencyImage}
@@ -91,14 +65,23 @@ export const BurgerConstructor = ({
             />
           </div>
 
-          <Button htmlType="button" type="primary" size="large" onClick={handleClick}>
+          <Button
+            htmlType="button"
+            type="primary"
+            size="large"
+            disabled={!ingredients.length}
+            onClick={() => {
+              handleSubmit();
+              toggleModal();
+            }}
+          >
             Оформить заказ
           </Button>
         </div>
       </section>
-      {modalToggle && (
-        <Modal onClose={handleClick}>
-          <OrderDetails orderId="034536" />
+      {modalToggle && !isLoading && (
+        <Modal onClose={toggleModal}>
+          <OrderDetails />
         </Modal>
       )}
     </>

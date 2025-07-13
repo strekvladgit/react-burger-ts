@@ -1,0 +1,16 @@
+.constructor_wrap {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 120px);
+}
+
+.constructor_scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.hover {
+  box-shadow: inset 0 0 5px #4c4cff;
+}
