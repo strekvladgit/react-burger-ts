@@ -1,23 +1,18 @@
+import { sendRequest } from '@/utils/sendRequest';
+
 import type { TIngredientsResponse, TIngredient } from '@/utils/types';
 
 class IngredientsAPI {
-  baseAPI: string;
-
-  constructor() {
-    this.baseAPI = 'https://norma.nomoreparties.space/api/ingredients';
-  }
-
-  public getIngredients = async (): Promise<
-    TIngredientsResponse<TIngredient[]>
-  > => {
-    const response = await fetch(this.baseAPI);
-
-    if (!response.ok) {
-      throw new Error(`Http error status: ${response.status}`);
+  public async getIngredients(): Promise<TIngredientsResponse<TIngredient[]>> {
+    try {
+      return await sendRequest<TIngredientsResponse<TIngredient[]>>(
+        '/ingredients'
+      );
+    } catch (error) {
+      console.error('Failed to fetch ingredients:', error);
+      throw error;
     }
-
-    return response.json() as Promise<TIngredientsResponse<TIngredient[]>>;
-  };
+  }
 }
 
 export default new IngredientsAPI();

@@ -1,28 +1,23 @@
+import { sendRequest } from '@/utils/sendRequest';
+
 import type { TOrderResponse, TOrderData } from '@/utils/types';
 
 class OrderAPI {
-  baseAPI: string;
-
-  constructor() {
-    this.baseAPI = 'https://norma.nomoreparties.space/api/orders';
-  }
-
   public postOrder = async (data: TOrderData): Promise<TOrderResponse> => {
-    console.log(JSON.stringify(data));
-    console.log(data);
-    const response = await fetch(this.baseAPI, {
+    const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
       body: JSON.stringify(data),
-    });
+    };
 
-    if (!response.ok) {
-      throw new Error(`Http error status: ${response.status}`);
+    try {
+      return await sendRequest<TOrderResponse>('/orders', options);
+    } catch (error) {
+      console.error('Failed to fetch ingredients:', error);
+      throw error;
     }
-
-    return (await response.json()) as Promise<TOrderResponse>;
   };
 }
 
