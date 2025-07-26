@@ -1,6 +1,6 @@
-import type { TIngredient } from '@utils/types.ts';
+import type { TConstructorIngredients } from '@utils/types.ts';
 
-export const mockIngredients: TIngredient[] = [
+export const mockIngredients: TConstructorIngredients[] = [
   {
     _id: '60666c42cc7b410027a1a9b1',
     name: 'Краторная булка N-200i',
@@ -14,6 +14,7 @@ export const mockIngredients: TIngredient[] = [
     image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
     __v: 0,
+    _key: '1232213134',
   },
   {
     _id: '60666c42cc7b410027a1a9b7',
@@ -28,6 +29,7 @@ export const mockIngredients: TIngredient[] = [
     image_mobile: 'https://code.s3.yandex.net/react/code/sauce-02-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/sauce-02-large.png',
     __v: 0,
+    _key: '23432114324',
   },
   {
     _id: '60666c42cc7b410027a1a9b4',
@@ -42,6 +44,7 @@ export const mockIngredients: TIngredient[] = [
     image_mobile: 'https://code.s3.yandex.net/react/code/meat-02-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/meat-02-large.png',
     __v: 0,
+    _key: '234324324',
   },
   {
     _id: '60666c42cc7b410027a1a9b9',
@@ -56,6 +59,7 @@ export const mockIngredients: TIngredient[] = [
     image_mobile: 'https://code.s3.yandex.net/react/code/sauce-03-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/sauce-03-large.png',
     __v: 0,
+    _key: '23434554324',
   },
   {
     _id: '60666c42cc7b410027a1a9bc',
@@ -70,6 +74,7 @@ export const mockIngredients: TIngredient[] = [
     image_mobile: 'https://code.s3.yandex.net/react/code/sp_1-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/sp_1-large.png',
     __v: 0,
+    _key: '765hgfh',
   },
   {
     _id: '60666c42cc7b410027a1a9bb',
@@ -81,8 +86,11 @@ export const mockIngredients: TIngredient[] = [
     calories: 986,
     price: 300,
     image: 'https://code.s3.yandex.net/react/code/mineral_rings.png',
-    image_mobile: 'https://code.s3.yandex.net/react/code/mineral_rings-mobile.png',
-    image_large: 'https://code.s3.yandex.net/react/code/mineral_rings-large.png',
+    image_mobile:
+      'https://code.s3.yandex.net/react/code/mineral_rings-mobile.png',
+    image_large:
+      'https://code.s3.yandex.net/react/code/mineral_rings-large.png',
     __v: 0,
+    _key: 'fghgf34534',
   },
 ];

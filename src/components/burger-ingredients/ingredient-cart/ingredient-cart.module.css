@@ -2,6 +2,10 @@
   cursor: pointer;
 }
 
+.is_dragging {
+  box-shadow: 0 0 5px #4c4cff9b;
+}
+
 .price {
   display: flex;
   justify-content: center;
@@ -16,4 +20,8 @@
 
 .image {
   max-width: 240px;
+}
+
+.image_wrap {
+  position: relative;
 }
