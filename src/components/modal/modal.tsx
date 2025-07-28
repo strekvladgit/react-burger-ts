@@ -10,7 +10,12 @@ import styles from './modal.module.css';
 
 const modalRoot = document.getElementById('modal');
 
-const Modal = ({ title, onClose, extraClass, children }: TModal): React.JSX.Element => {
+const Modal = ({
+  title,
+  onClose,
+  extraClass,
+  children,
+}: TModal): React.JSX.Element => {
   const handleKeydown = (e: KeyboardEvent): void => {
     if (e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27) {
       onClose?.();
@@ -30,7 +35,9 @@ const Modal = ({ title, onClose, extraClass, children }: TModal): React.JSX.Elem
           <ModalOverlay onClose={onClose}>
             <div className={`${styles.modal} p-10 ${extraClass}`}>
               <div className={styles.modal_header}>
-                <h3 className={`${styles.title} text text_type_main-large`}>{title}</h3>
+                <h3 className={`${styles.title} text text_type_main-large`}>
+                  {title}
+                </h3>
                 <button className={styles.close_button} onClick={onClose}>
                   <CloseIcon type="primary" />
                 </button>
