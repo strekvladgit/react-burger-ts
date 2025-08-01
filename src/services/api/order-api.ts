@@ -11,13 +11,7 @@ class OrderAPI {
       },
       body: JSON.stringify(data),
     };
-
-    try {
-      return await sendRequest<TOrderResponse>('/orders', options);
-    } catch (error) {
-      console.error('Failed to fetch ingredients:', error);
-      throw error;
-    }
+    return await sendRequest<TOrderResponse>('/orders', options);
   };
 }
 
