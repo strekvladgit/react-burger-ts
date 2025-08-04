@@ -1,10 +1,13 @@
+import Spinner from '@/components/spinner/spinner';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { signOut, updateUser } from '@/services/store/user/actions';
-import { getUser } from '@/services/store/user/reducers';
+import { getIsLoading, getUser } from '@/services/store/user/reducers';
 import { Button, Input } from '@krgaa/react-developer-burger-ui-components';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import type { FormEvent } from 'react';
 
 import styles from './profile-page.module.css';
 
@@ -20,6 +23,7 @@ type TProfileForm = {
 };
 
 const ProfilePage = (): React.JSX.Element => {
+  const isLoading = useSelector(getIsLoading);
   const user = useSelector(getUser);
 
   const dispatch = useAppDispatch();
@@ -104,7 +108,8 @@ const ProfilePage = (): React.JSX.Element => {
     }, 0);
   };
 
-  const handleUpdateUserClick = (): void => {
+  const handleUpdateUserClick = (e: FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
     void dispatch(
       updateUser({
         email: state.email.value,
@@ -140,7 +145,7 @@ const ProfilePage = (): React.JSX.Element => {
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </div>
-      <div>
+      <form onSubmit={handleUpdateUserClick}>
         <Input
           disabled={!state.name.isActive}
           ref={nameInputRef}
@@ -199,12 +204,12 @@ const ProfilePage = (): React.JSX.Element => {
             >
               Отмена
             </Button>
-            <Button htmlType="button" onClick={handleUpdateUserClick}>
-              Сохранить
+            <Button disabled={isLoading} htmlType="submit">
+              {isLoading ? <Spinner size="small" /> : 'Сохранить'}
             </Button>
           </div>
         )}
-      </div>
+      </form>
     </main>
   );
 };
