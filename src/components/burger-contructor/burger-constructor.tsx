@@ -2,10 +2,12 @@ import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { getConstructorIngredients } from '@/services/store/constructor-ingredients/reducers';
 import { sendOrder } from '@/services/store/order/actions';
 import { getOrderLoading } from '@/services/store/order/reducers';
+import { getUser } from '@/services/store/user/reducers';
 import currencyImage from '@images/currency.svg';
 import { Button } from '@krgaa/react-developer-burger-ui-components';
 import { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import Modal from '../modal/modal';
 import ConstructorList from './constructor-list/constructor-list';
@@ -16,6 +18,8 @@ import type { TOrderData } from '@/utils/types';
 import styles from './burger-constructor.module.css';
 
 export const BurgerConstructor = (): React.JSX.Element => {
+  const user = useSelector(getUser);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const ingredients = useSelector(getConstructorIngredients);
   const isLoading = useSelector(getOrderLoading);
@@ -71,8 +75,12 @@ export const BurgerConstructor = (): React.JSX.Element => {
             size="large"
             disabled={!ingredients.length}
             onClick={() => {
-              handleSubmit();
-              toggleModal();
+              if (!user) {
+                void navigate('/login');
+              } else {
+                handleSubmit();
+                toggleModal();
+              }
             }}
           >
             Оформить заказ

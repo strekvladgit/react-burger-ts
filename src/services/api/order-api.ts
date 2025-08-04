@@ -1,4 +1,4 @@
-import { sendRequest } from '@/utils/sendRequest';
+import { sendRequestWithNewToken } from '@/utils/sendRequestWithNewToken';
 
 import type { TOrderResponse, TOrderData } from '@/utils/types';
 
@@ -8,10 +8,11 @@ class OrderAPI {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
+        Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
       },
       body: JSON.stringify(data),
     };
-    return await sendRequest<TOrderResponse>('/orders', options);
+    return await sendRequestWithNewToken<TOrderResponse>('/orders', options);
   };
 }
 
