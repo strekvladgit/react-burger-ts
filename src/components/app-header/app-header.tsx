@@ -12,7 +12,6 @@ import styles from './app-header.module.css';
 
 export const AppHeader = (): React.JSX.Element => {
   const user = useSelector(getUser);
-  console.log(user);
 
   return (
     <header className={styles.header}>

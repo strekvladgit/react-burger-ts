@@ -1,5 +1,3 @@
-import { useAppDispatch } from '@/hooks/useAppDispatch';
-import { loadIngredients } from '@/services/store/ingredients/actions';
 import {
   getBuns,
   getMainIngredients,
@@ -17,7 +15,6 @@ import styles from './burger-ingredients.module.css';
 
 export const BurgerIngredients = (): React.JSX.Element => {
   const [currentTabIndex, setCurrentTabIndex] = useState<string>('bun');
-  const dispatch = useAppDispatch();
   const buns = useSelector(getBuns);
   const mainIngredients = useSelector(getMainIngredients);
   const sauces = useSelector(getSauces);
@@ -42,19 +39,11 @@ export const BurgerIngredients = (): React.JSX.Element => {
     });
   };
 
-  // const handleClick = (section: string): void => {
-  // todo
-  // };
-
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.addEventListener('scroll', updateTabs);
     }
   }, []);
-
-  useEffect(() => {
-    void dispatch(loadIngredients());
-  }, [dispatch]);
 
   const renderIngredients = (
     ingredients: TIngredient[]

@@ -48,8 +48,8 @@ const ResetPasswordPage = (): React.JSX.Element => {
       <Input
         value={tokenValue}
         onChange={(e) => setTokenValue(e.target.value)}
-        name="email"
-        placeholder="Укажите e-mail"
+        name="token"
+        placeholder="Введите код из письма"
       />
       <Button
         htmlType="button"
