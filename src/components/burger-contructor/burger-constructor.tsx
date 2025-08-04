@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import Modal from '../modal/modal';
+import Spinner from '../spinner/spinner';
 import ConstructorList from './constructor-list/constructor-list';
 import OrderDetails from './order-details/order-details';
 
@@ -31,7 +32,6 @@ export const BurgerConstructor = (): React.JSX.Element => {
     }
     const dataIngredients = ingredients.reduce<TOrderData>(
       (result, ingredient) => {
-        console.log(ingredient);
         result.ingredients.push(ingredient._id);
         return result;
       },
@@ -73,7 +73,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
             htmlType="button"
             type="primary"
             size="large"
-            disabled={!ingredients.length}
+            disabled={!ingredients.length || isLoading}
             onClick={() => {
               if (!user) {
                 void navigate('/login');
@@ -83,7 +83,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
               }
             }}
           >
-            Оформить заказ
+            {isLoading ? <Spinner size="small" /> : 'Оформить заказ'}
           </Button>
         </div>
       </section>

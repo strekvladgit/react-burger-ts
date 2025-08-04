@@ -26,7 +26,12 @@ export const constructorSlice = createSlice({
     getConstructorBuns: (state) => state.bun,
     getConstructorOthers: (state) => state.otherIngredients,
   },
-  reducers: {},
+  reducers: {
+    clearContructorIngredients: (state) => {
+      state.bun = null;
+      state.otherIngredients = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(addIngredient, (state, action) => {
@@ -52,6 +57,8 @@ export const constructorSlice = createSlice({
       });
   },
 });
+
+export const { clearContructorIngredients } = constructorSlice.actions;
 
 export const {
   getConstructorIngredients,

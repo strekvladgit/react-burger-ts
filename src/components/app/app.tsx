@@ -86,6 +86,7 @@ export const App = (): React.JSX.Element => {
             path="/ingredient/:id"
             element={
               <Modal
+                title="Детали ингридиента"
                 onClose={() => {
                   void navigate(-1);
                 }}
