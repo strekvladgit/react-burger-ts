@@ -90,3 +90,9 @@ export type TLogoutResponse = {
   success: boolean;
   message: string;
 };
+
+export type TErrorResponse = {
+  success: boolean;
+  message?: string;
+  [key: string]: unknown;
+};

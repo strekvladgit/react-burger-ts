@@ -1,6 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  isFulfilled,
+  isPending,
+  isRejected,
+} from '@reduxjs/toolkit';
 
-import { login, logout, register } from './actions';
+import { checkAuth, signIn, signOut, signUp, updateUser } from './actions';
 
 type TUser = {
   name: string;
@@ -10,11 +15,15 @@ type TUser = {
 type TUserState = {
   user: TUser | null;
   isAuthChecked: boolean;
+  isLoading: boolean;
+  isOnReset: boolean;
 };
 
 const initialState: TUserState = {
   user: null,
   isAuthChecked: false,
+  isLoading: false,
+  isOnReset: false,
 };
 
 export const userSlice = createSlice({
@@ -31,22 +40,44 @@ export const userSlice = createSlice({
   selectors: {
     getUser: (state) => state.user,
     getIsAuthChecked: (state) => state.isAuthChecked,
+    getIsLoading: (state) => state.isLoading,
+    getIsOnReset: (state) => state.isOnReset,
   },
   extraReducers: (builder) => {
     builder
-      .addCase(login.fulfilled, (state, action) => {
+      .addCase(signIn.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isAuthChecked = true;
       })
-      .addCase(logout.fulfilled, (state) => {
+      .addCase(signOut.fulfilled, (state) => {
         state.user = null;
       })
-      .addCase(register.fulfilled, (state, action) => {
+      .addCase(signUp.fulfilled, (state, action) => {
         state.user = action.payload;
+        state.isAuthChecked = true;
+      })
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isAuthChecked = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isAuthChecked = true;
+      })
+      .addMatcher(isPending, (state) => {
+        state.isLoading = true;
+      })
+      .addMatcher(isFulfilled, (state) => {
+        state.isLoading = false;
+      })
+      .addMatcher(isRejected, (state) => {
+        state.isLoading = false;
+        state.user = null;
+        state.isOnReset = false;
         state.isAuthChecked = true;
       });
   },
 });
 
-export const { getUser, getIsAuthChecked } = userSlice.selectors;
+export const { getUser, getIsAuthChecked, getIsLoading } = userSlice.selectors;
 export const { setUser, setIsAuthChecked } = userSlice.actions;

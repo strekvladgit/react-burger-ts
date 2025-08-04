@@ -1,3 +1,4 @@
+import { setWithExpiry } from '@/utils/localStoragetWithExpiry';
 import { sendRequest } from '@/utils/sendRequest';
 import { sendRequestWithNewToken } from '@/utils/sendRequestWithNewToken';
 
@@ -56,9 +57,7 @@ class AuthAPI {
     return await sendRequestWithNewToken<TUserResponse>('/auth/user', options);
   }
 
-  public async postResetRequest(
-    email: TResetRequestData
-  ): Promise<TResetResponse> {
+  public async postResetRequest(email: TResetRequestData): Promise<void> {
     const options = {
       method: 'POST',
       headers: {
@@ -66,10 +65,16 @@ class AuthAPI {
       },
       body: JSON.stringify(email),
     };
-    return await sendRequest<TResetResponse>('/password-reset', options);
+    return await sendRequest<TResetResponse>('/password-reset', options).then(
+      ({ success }) => {
+        if (success) {
+          setWithExpiry<boolean>('isOnReset', true, 15 * 60 * 1000);
+        }
+      }
+    );
   }
 
-  public async postReset(data: TResetData): Promise<TResetResponse> {
+  public async postReset(data: TResetData): Promise<void> {
     const options = {
       method: 'POST',
       headers: {
@@ -77,7 +82,13 @@ class AuthAPI {
       },
       body: JSON.stringify(data),
     };
-    return await sendRequest<TResetResponse>('/password-reset/reset', options);
+    await sendRequest<TResetResponse>('/password-reset/reset', options).then(
+      ({ success }) => {
+        if (success) {
+          localStorage.removeItem('isOnReset');
+        }
+      }
+    );
   }
 
   public async postLogout(): Promise<void> {

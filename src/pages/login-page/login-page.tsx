@@ -1,4 +1,6 @@
 import AuthForm from '@/components/auth-form/auth-form';
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { signIn } from '@/services/store/user/actions';
 import {
   Button,
   EmailInput,
@@ -13,8 +15,19 @@ const LoginPage = (): React.JSX.Element => {
 
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false);
 
+  const dispatch = useAppDispatch();
+
   const handleIconClick = (): void => {
     setPasswordVisibility(!passwordVisibility);
+  };
+
+  const handleSubmit = (): void => {
+    void dispatch(
+      signIn({
+        email: emailValue,
+        password: passwordValue,
+      })
+    );
   };
 
   return (
@@ -34,7 +47,9 @@ const LoginPage = (): React.JSX.Element => {
         icon={passwordVisibility ? 'HideIcon' : 'ShowIcon'}
         onIconClick={handleIconClick}
       />
-      <Button htmlType="submit">Войти</Button>
+      <Button htmlType="button" onClick={handleSubmit}>
+        Войти
+      </Button>
       <footer className="mt-20">
         <p className="text text_type_main-default text_color_inactive">
           Вы — новый пользователь?{' '}

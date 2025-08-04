@@ -1,3 +1,4 @@
+import { BASE_URL } from './constants';
 import { checkResponse, sendRequest } from './sendRequest';
 
 import type { TRefreshTokenResponse } from './types';
@@ -13,7 +14,7 @@ const refreshToken = async (): Promise<TRefreshTokenResponse> => {
     }),
   };
 
-  return await sendRequest<TRefreshTokenResponse>('/auth/token', options);
+  return await sendRequest<TRefreshTokenResponse>(`/auth/token`, options);
 };
 
 export const sendRequestWithNewToken = async <T>(
@@ -21,23 +22,26 @@ export const sendRequestWithNewToken = async <T>(
   options?: RequestInit
 ): Promise<T> => {
   try {
-    const res = await fetch(url, options);
+    const res = await fetch(`${BASE_URL}${url}`, options);
     return await checkResponse(res);
   } catch (error) {
-    if (error == 'jwt expired') {
-      const refreshData = await refreshToken();
+    if (error instanceof Error && error.message == 'jwt expired') {
+      await refreshToken().then(({ accessToken, refreshToken }) => {
+        localStorage.setItem('accessToken', accessToken.slice(7));
+        localStorage.setItem('refreshToken', refreshToken);
+      });
 
       const newOptions: RequestInit = {
         ...options,
         headers: {
           ...options?.headers,
-          Authorization: refreshData.accessToken,
+          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
         },
       };
-      const res = await fetch(url, newOptions);
+      const res = await fetch(`${BASE_URL}${url}`, newOptions);
       return await checkResponse<T>(res);
     } else {
-      throw new Error(error as string);
+      throw error;
     }
   }
 };

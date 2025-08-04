@@ -1,0 +1,15 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding-bottom: 50px;
+}
+
+.link {
+  display: block;
+  margin-top: 20px;
+  color: rgb(76 76 255);
+  text-decoration: none;
+}

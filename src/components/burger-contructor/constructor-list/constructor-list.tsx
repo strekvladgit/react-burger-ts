@@ -71,7 +71,11 @@ const ConstructorList = (): React.JSX.Element => {
         isDraggable={false}
       />
     ) : (
-      <ConstructorSpace text="Выберите булку" type="top" />
+      <ConstructorSpace
+        extraClass={`${Item && Item.type === 'bun' ? styles.hover : ''}`}
+        text="Выберите булку"
+        type="top"
+      />
     ),
     buns ? (
       <ConstructorIngredient
@@ -84,7 +88,11 @@ const ConstructorList = (): React.JSX.Element => {
         isDraggable={false}
       />
     ) : (
-      <ConstructorSpace text="Выберите булку" type="bottom" />
+      <ConstructorSpace
+        extraClass={`${Item && Item.type === 'bun' ? styles.hover : ''}`}
+        text="Выберите булку"
+        type="bottom"
+      />
     ),
   ];
 
@@ -93,7 +101,10 @@ const ConstructorList = (): React.JSX.Element => {
       {bunsRendered[0]}
       <div className={`${styles.constructor_scroll} mt-4 mb-4`}>
         {otherIngredientsRendered ?? (
-          <ConstructorSpace text="Выберите ингридиент" />
+          <ConstructorSpace
+            extraClass={`${Item && Item.type !== 'bun' ? styles.hover : ''}`}
+            text="Выберите ингридиент"
+          />
         )}
       </div>
       {bunsRendered[1]}

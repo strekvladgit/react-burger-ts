@@ -1,5 +1,9 @@
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { signOut, updateUser } from '@/services/store/user/actions';
+import { getUser } from '@/services/store/user/reducers';
 import { Button, Input } from '@krgaa/react-developer-burger-ui-components';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import styles from './profile-page.module.css';
@@ -15,27 +19,49 @@ type TProfileForm = {
   password: TField;
 };
 
-const initialState: TProfileForm = {
-  name: {
-    value: 'Vasya',
-    isActive: false,
-  },
-  email: {
-    value: 'some@email.com',
-    isActive: false,
-  },
-  password: {
-    value: '',
-    isActive: false,
-  },
-};
-
 const ProfilePage = (): React.JSX.Element => {
+  const user = useSelector(getUser);
+
+  const dispatch = useAppDispatch();
+
+  const [initialState, setInitialState] = useState<TProfileForm>({
+    name: {
+      value: '',
+      isActive: false,
+    },
+    email: {
+      value: '',
+      isActive: false,
+    },
+    password: {
+      value: '',
+      isActive: false,
+    },
+  });
   const [state, setState] = useState<TProfileForm>(initialState);
 
   const nameInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const newState = {
+      name: {
+        value: user!.name,
+        isActive: false,
+      },
+      email: {
+        value: user!.email,
+        isActive: false,
+      },
+      password: {
+        value: '',
+        isActive: false,
+      },
+    };
+    setInitialState(newState);
+    setState(newState);
+  }, [user]);
 
   const isEqualToInitial = useMemo((): boolean => {
     const stateValues = Object.values(state);
@@ -46,7 +72,7 @@ const ProfilePage = (): React.JSX.Element => {
       }
     }
     return true;
-  }, [state]);
+  }, [state, initialState]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -78,6 +104,20 @@ const ProfilePage = (): React.JSX.Element => {
     }, 0);
   };
 
+  const handleUpdateUserClick = (): void => {
+    void dispatch(
+      updateUser({
+        email: state.email.value,
+        name: state.name.value,
+        password: state.password.value,
+      })
+    );
+  };
+
+  const handleSignOutClick = (): void => {
+    void dispatch(signOut());
+  };
+
   return (
     <main className={`${styles.wrap} pt-30 pl-4 pr-4`}>
       <div className={`${styles.navigation} mr-15`}>
@@ -90,11 +130,11 @@ const ProfilePage = (): React.JSX.Element => {
               История заказов
             </p>
           </Link>
-          <Link className={styles.navlink} to="/">
+          <button className={styles.navlink} onClick={handleSignOutClick}>
             <p className="text text_type_main-medium text_color_inactive">
               Выход
             </p>
-          </Link>
+          </button>
         </nav>
         <p className="text text_type_main-default text_color_inactive mt-20">
           В этом разделе вы можете изменить свои персональные данные
@@ -159,7 +199,9 @@ const ProfilePage = (): React.JSX.Element => {
             >
               Отмена
             </Button>
-            <Button htmlType="submit">Сохранить</Button>
+            <Button htmlType="button" onClick={handleUpdateUserClick}>
+              Сохранить
+            </Button>
           </div>
         )}
       </div>

@@ -1,4 +1,6 @@
 import AuthForm from '@/components/auth-form/auth-form';
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { signUp } from '@/services/store/user/actions';
 import {
   Button,
   EmailInput,
@@ -14,8 +16,20 @@ const RegisterPage = (): React.JSX.Element => {
 
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false);
 
+  const dispatch = useAppDispatch();
+
   const handleIconClick = (): void => {
     setPasswordVisibility(!passwordVisibility);
+  };
+
+  const handleSubmit = (): void => {
+    void dispatch(
+      signUp({
+        name: nameValue,
+        email: emailValue,
+        password: passwordValue,
+      })
+    );
   };
 
   return (
@@ -41,7 +55,9 @@ const RegisterPage = (): React.JSX.Element => {
         icon={passwordVisibility ? 'HideIcon' : 'ShowIcon'}
         onIconClick={handleIconClick}
       />
-      <Button htmlType="submit">Зарегистрироваться</Button>
+      <Button htmlType="button" onClick={handleSubmit}>
+        Зарегистрироваться
+      </Button>
       <footer className="mt-20">
         <p className="text text_type_main-default text_color_inactive">
           Уже зарегистрированы? <Link to="/login">Войти</Link>

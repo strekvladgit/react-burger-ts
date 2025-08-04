@@ -1,9 +1,15 @@
-const BASE_URL = 'https://norma.nomoreparties.space/api';
+import { BASE_URL } from './constants';
+
+import type { TErrorResponse } from './types';
 
 export const checkResponse = <T>(res: Response): Promise<T> => {
-  return res.ok
-    ? res.json()
-    : Promise.reject(new Error(`Ошибка ${res.status}`));
+  if (res.ok) {
+    return res.json();
+  }
+
+  return res.json().then(({ message }: TErrorResponse) => {
+    throw new Error(message);
+  });
 };
 
 export const sendRequest = async <T>(

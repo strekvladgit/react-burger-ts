@@ -1,14 +1,19 @@
+import { getUser } from '@/services/store/user/reducers';
 import {
   BurgerIcon,
   ListIcon,
   Logo,
   ProfileIcon,
 } from '@krgaa/react-developer-burger-ui-components';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import styles from './app-header.module.css';
 
 export const AppHeader = (): React.JSX.Element => {
+  const user = useSelector(getUser);
+  console.log(user);
+
   return (
     <header className={styles.header}>
       <nav className={`${styles.menu} p-4`}>
@@ -41,7 +46,9 @@ export const AppHeader = (): React.JSX.Element => {
           }
         >
           <ProfileIcon type="secondary" />
-          <p className="text text_type_main-default ml-2">Личный кабинет</p>
+          <p className="text text_type_main-default ml-2">
+            {user ? 'Личный кабинет' : 'Войти'}
+          </p>
         </NavLink>
       </nav>
     </header>
