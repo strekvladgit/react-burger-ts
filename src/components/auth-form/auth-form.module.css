@@ -1,0 +1,24 @@
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 480px;
+}
+
+.form footer {
+  text-align: center;
+}
+
+.form a {
+  color: rgb(76 76 255);
+  text-decoration: none;
+}

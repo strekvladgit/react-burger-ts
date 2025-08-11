@@ -4,7 +4,7 @@ import { loadIngredients } from './actions';
 
 import type { TIngredient } from '@/utils/types';
 
-type TIngredioentsState = {
+export type TIngredioentsState = {
   ingredients: TIngredient[];
   loading: boolean;
   error: string | null;

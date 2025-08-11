@@ -2,12 +2,15 @@ import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { getConstructorIngredients } from '@/services/store/constructor-ingredients/reducers';
 import { sendOrder } from '@/services/store/order/actions';
 import { getOrderLoading } from '@/services/store/order/reducers';
+import { getUser } from '@/services/store/user/reducers';
 import currencyImage from '@images/currency.svg';
 import { Button } from '@krgaa/react-developer-burger-ui-components';
 import { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import Modal from '../modal/modal';
+import Spinner from '../spinner/spinner';
 import ConstructorList from './constructor-list/constructor-list';
 import OrderDetails from './order-details/order-details';
 
@@ -16,6 +19,8 @@ import type { TOrderData } from '@/utils/types';
 import styles from './burger-constructor.module.css';
 
 export const BurgerConstructor = (): React.JSX.Element => {
+  const user = useSelector(getUser);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const ingredients = useSelector(getConstructorIngredients);
   const isLoading = useSelector(getOrderLoading);
@@ -27,7 +32,6 @@ export const BurgerConstructor = (): React.JSX.Element => {
     }
     const dataIngredients = ingredients.reduce<TOrderData>(
       (result, ingredient) => {
-        console.log(ingredient);
         result.ingredients.push(ingredient._id);
         return result;
       },
@@ -69,13 +73,17 @@ export const BurgerConstructor = (): React.JSX.Element => {
             htmlType="button"
             type="primary"
             size="large"
-            disabled={!ingredients.length}
+            disabled={!ingredients.length || isLoading}
             onClick={() => {
-              handleSubmit();
-              toggleModal();
+              if (!user) {
+                void navigate('/login');
+              } else {
+                handleSubmit();
+                toggleModal();
+              }
             }}
           >
-            Оформить заказ
+            {isLoading ? <Spinner size="small" /> : 'Оформить заказ'}
           </Button>
         </div>
       </section>

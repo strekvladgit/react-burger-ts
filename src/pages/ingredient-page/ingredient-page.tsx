@@ -1,10 +1,15 @@
-import { getCurrentIngredient } from '@/services/store/current-ingredient/reducers';
+import { getIngredients } from '@/services/store/ingredients/reducers';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import styles from './ingredient-details.module.css';
+import styles from './ingredient-page.module.css';
 
 const IngredientDetails = (): React.JSX.Element => {
-  const ingredient = useSelector(getCurrentIngredient);
+  const { id } = useParams<string>();
+
+  const ingredient = useSelector(getIngredients).find(
+    (ingredient) => ingredient._id === id
+  );
 
   return (
     <div className={styles.wrap}>
