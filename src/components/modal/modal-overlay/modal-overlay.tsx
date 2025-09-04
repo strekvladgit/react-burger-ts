@@ -19,7 +19,8 @@ const ModalOverlay = ({ onClose, children }: TModal): React.JSX.Element => {
   useEffect(() => {
     modalRef.current?.addEventListener('click', handleClick);
 
-    return (): void => modalRef.current?.removeEventListener('click', handleClick);
+    return (): void =>
+      modalRef.current?.removeEventListener('click', handleClick);
   }, []);
 
   return (

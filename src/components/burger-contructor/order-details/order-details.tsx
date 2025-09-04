@@ -1,11 +1,11 @@
+import { useAppSelector } from '@/hooks/use-app-selector';
 import { getOrderNum } from '@/services/store/order/reducers';
 import done from '@images/done.svg';
-import { useSelector } from 'react-redux';
 
 import styles from './order-details.module.css';
 
 const OrderDetails = (): React.JSX.Element => {
-  const orderId = useSelector(getOrderNum);
+  const orderId = useAppSelector(getOrderNum);
   return (
     <div className={styles.modal_wrap}>
       <h2 className="text text_type_digits-large mt-2">{orderId}</h2>

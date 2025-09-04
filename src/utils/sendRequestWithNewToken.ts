@@ -3,7 +3,7 @@ import { checkResponse, sendRequest } from './sendRequest';
 
 import type { TRefreshTokenResponse } from './types';
 
-const refreshToken = async (): Promise<TRefreshTokenResponse> => {
+export const refreshToken = async (): Promise<TRefreshTokenResponse> => {
   const options = {
     method: 'POST',
     headers: {

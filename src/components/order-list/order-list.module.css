@@ -1,0 +1,7 @@
+.wrap {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}

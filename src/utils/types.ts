@@ -27,7 +27,7 @@ export type TIngredientsResponse<T> = {
 };
 
 export type TOrderResponse = {
-  success: true;
+  success: boolean;
   order: {
     number: number;
   };
@@ -95,4 +95,28 @@ export type TErrorResponse = {
   success: boolean;
   message?: string;
   [key: string]: unknown;
+};
+
+export type TOrderInfo = {
+  ingredients: string[];
+  name: string;
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type TOrdersResponse = {
+  success: boolean;
+  orders: TOrderInfo[];
+  total: number;
+  totalToday: number;
+};
+
+export type TFeedState = {
+  orders: TOrderInfo[];
+  total: number;
+  totalToday: number;
+  error: string | null;
 };

@@ -14,14 +14,10 @@ export const addIngredient = createAction(
   }
 );
 
-export const deleteIngredient = createAction(
-  'constructorIngredients/deleteIngredient',
-  (key: string) => {
-    return {
-      payload: key,
-    };
-  }
-);
+export const deleteIngredient = createAction<
+  string,
+  'constructorIngredients/deleteIngredient'
+>('constructorIngredients/deleteIngredient');
 
 export const moveIngredient = createAction(
   'constructorIngredients/moveIngredient',

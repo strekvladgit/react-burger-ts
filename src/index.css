@@ -19,3 +19,14 @@ body {
 .text-center {
   text-align: center;
 }
+
+.backlighted {
+  text-shadow:
+    0 0 20px rgb(51 51 255 / 25%),
+    0 0 30px rgb(51 51 255 / 25%),
+    0 0 40px rgb(51 51 255 / 25%);
+}
+
+.text-blue {
+  color: rgb(0 204 204 / 100%);
+}
