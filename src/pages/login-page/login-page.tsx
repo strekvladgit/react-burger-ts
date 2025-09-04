@@ -1,6 +1,7 @@
 import AuthForm from '@/components/auth-form/auth-form';
 import Spinner from '@/components/spinner/spinner';
-import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppDispatch } from '@/hooks/use-app-dispatch';
+import { useAppSelector } from '@/hooks/use-app-selector';
 import { signIn } from '@/services/store/user/actions';
 import { getIsLoading } from '@/services/store/user/reducers';
 import {
@@ -9,13 +10,12 @@ import {
   Input,
 } from '@krgaa/react-developer-burger-ui-components';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import type { FormEvent } from 'react';
 
 const LoginPage = (): React.JSX.Element => {
-  const isLoading = useSelector(getIsLoading);
+  const isLoading = useAppSelector(getIsLoading);
   const [emailValue, setEmailValue] = useState<string>('');
   const [passwordValue, setPasswordValue] = useState<string>('');
 

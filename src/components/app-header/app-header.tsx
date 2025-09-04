@@ -1,3 +1,4 @@
+import { useAppSelector } from '@/hooks/use-app-selector';
 import { getUser } from '@/services/store/user/reducers';
 import {
   BurgerIcon,
@@ -5,13 +6,12 @@ import {
   Logo,
   ProfileIcon,
 } from '@krgaa/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 
 import styles from './app-header.module.css';
 
 export const AppHeader = (): React.JSX.Element => {
-  const user = useSelector(getUser);
+  const user = useAppSelector(getUser);
 
   return (
     <header className={styles.header}>
@@ -25,13 +25,30 @@ export const AppHeader = (): React.JSX.Element => {
                 : `${styles.link}`
             }
           >
-            <BurgerIcon type="primary" />
-            <p className="text text_type_main-default ml-2">Конструктор</p>
+            {({ isActive }) => (
+              <>
+                <BurgerIcon type={isActive ? 'primary' : 'secondary'} />
+                <p className="text text_type_main-default ml-2">Конструктор</p>
+              </>
+            )}
           </NavLink>
-          <a href="/feed" className={`${styles.link} ml-10`}>
-            <ListIcon type="secondary" />
-            <p className="text text_type_main-default ml-2">Лента заказов</p>
-          </a>
+          <NavLink
+            to="/feed"
+            className={({ isActive }) =>
+              isActive
+                ? `${styles.link} ${styles.link_active} ml-10`
+                : `${styles.link} ml-10`
+            }
+          >
+            {({ isActive }) => (
+              <>
+                <ListIcon type={isActive ? 'primary' : 'secondary'} />
+                <p className="text text_type_main-default ml-2">
+                  Лента заказов
+                </p>
+              </>
+            )}
+          </NavLink>
         </div>
         <div className={styles.logo}>
           <Link to="/">
@@ -46,10 +63,14 @@ export const AppHeader = (): React.JSX.Element => {
               : `${styles.link} ${styles.link_position_last}`
           }
         >
-          <ProfileIcon type="secondary" />
-          <p className="text text_type_main-default ml-2">
-            {user ? 'Личный кабинет' : 'Войти'}
-          </p>
+          {({ isActive }) => (
+            <>
+              <ProfileIcon type={isActive ? 'primary' : 'secondary'} />
+              <p className="text text_type_main-default ml-2">
+                {user ? 'Личный кабинет' : 'Войти'}
+              </p>
+            </>
+          )}
         </NavLink>
       </nav>
     </header>

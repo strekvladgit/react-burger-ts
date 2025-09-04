@@ -1,15 +1,18 @@
-import { getIngredients } from '@/services/store/ingredients/reducers';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '@/hooks/use-app-selector';
 import { useParams } from 'react-router-dom';
+
+import type { RootState } from '@/services/store/store';
 
 import styles from './ingredient-page.module.css';
 
 const IngredientDetails = (): React.JSX.Element => {
   const { id } = useParams<string>();
 
-  const ingredient = useSelector(getIngredients).find(
-    (ingredient) => ingredient._id === id
-  );
+  const ingredient = useAppSelector((state: RootState) => {
+    return state.ingredients.ingredients.find(
+      (ingredient) => ingredient._id === id
+    );
+  });
 
   return (
     <div className={styles.wrap}>

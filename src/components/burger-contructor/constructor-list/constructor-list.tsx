@@ -1,11 +1,11 @@
-import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppDispatch } from '@/hooks/use-app-dispatch';
+import { useAppSelector } from '@/hooks/use-app-selector';
 import { addIngredient } from '@/services/store/constructor-ingredients/actions';
 import {
   getConstructorBuns,
   getConstructorOthers,
 } from '@/services/store/constructor-ingredients/reducers';
 import { useDrop } from 'react-dnd';
-import { useSelector } from 'react-redux';
 
 import ConstructorIngredient from '../constructor-ingredient/constructor-ingredient';
 import ConstructorSpace from '../constructor-space/constructor-space';
@@ -18,8 +18,8 @@ import styles from './constructor-list.module.css';
 const ConstructorList = (): React.JSX.Element => {
   const dispatch = useAppDispatch();
 
-  const buns = useSelector(getConstructorBuns);
-  const otherIngredients = useSelector(getConstructorOthers);
+  const buns = useAppSelector(getConstructorBuns);
+  const otherIngredients = useAppSelector(getConstructorOthers);
 
   const [{ Item }, dropTarget] = useDrop<
     TIngredient,

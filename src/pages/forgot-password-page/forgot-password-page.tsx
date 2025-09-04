@@ -1,5 +1,6 @@
 import AuthForm from '@/components/auth-form/auth-form';
 import Spinner from '@/components/spinner/spinner';
+import { useAppSelector } from '@/hooks/use-app-selector';
 import authApi from '@/services/api/auth-api';
 import { getIsLoading } from '@/services/store/user/reducers';
 import {
@@ -7,13 +8,12 @@ import {
   EmailInput,
 } from '@krgaa/react-developer-burger-ui-components';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import type { FormEvent } from 'react';
 
 const ForgotPasswordPage = (): React.JSX.Element => {
-  const isLoading = useSelector(getIsLoading);
+  const isLoading = useAppSelector(getIsLoading);
   const [emailValue, setEmailValue] = useState<string>('');
 
   const navigate = useNavigate();

@@ -1,0 +1,49 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1240px;
+  min-height: 0;
+  margin: 0 auto;
+}
+
+.flexbox {
+  display: flex;
+  flex: 1;
+  gap: 60px;
+  overflow: auto;
+}
+
+.list {
+  width: 100%;
+  max-width: 600px;
+  overflow: hidden auto;
+}
+
+.history {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.history > div {
+  flex: 1;
+  overflow: hidden;
+}
+
+.status {
+  display: flex;
+  justify-content: space-between;
+  gap: 36px;
+}
+
+.status > div {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.status > div > span {
+  display: block;
+}

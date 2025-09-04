@@ -1,6 +1,11 @@
+import { sendRequest } from '@/utils/sendRequest';
 import { sendRequestWithNewToken } from '@/utils/sendRequestWithNewToken';
 
-import type { TOrderResponse, TOrderData } from '@/utils/types';
+import type {
+  TOrderResponse,
+  TOrderData,
+  TOrdersResponse,
+} from '@/utils/types';
 
 class OrderAPI {
   public postOrder = async (data: TOrderData): Promise<TOrderResponse> => {
@@ -14,6 +19,16 @@ class OrderAPI {
     };
     return await sendRequestWithNewToken<TOrderResponse>('/orders', options);
   };
+
+  public getOrder(number: number): Promise<TOrdersResponse> {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    };
+    return sendRequest<TOrdersResponse>(`/orders/${number}`, options);
+  }
 }
 
 export default new OrderAPI();

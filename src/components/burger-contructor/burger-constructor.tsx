@@ -1,4 +1,5 @@
-import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppDispatch } from '@/hooks/use-app-dispatch';
+import { useAppSelector } from '@/hooks/use-app-selector';
 import { getConstructorIngredients } from '@/services/store/constructor-ingredients/reducers';
 import { sendOrder } from '@/services/store/order/actions';
 import { getOrderLoading } from '@/services/store/order/reducers';
@@ -6,7 +7,6 @@ import { getUser } from '@/services/store/user/reducers';
 import currencyImage from '@images/currency.svg';
 import { Button } from '@krgaa/react-developer-burger-ui-components';
 import { useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import Modal from '../modal/modal';
@@ -19,11 +19,11 @@ import type { TOrderData } from '@/utils/types';
 import styles from './burger-constructor.module.css';
 
 export const BurgerConstructor = (): React.JSX.Element => {
-  const user = useSelector(getUser);
+  const user = useAppSelector(getUser);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const ingredients = useSelector(getConstructorIngredients);
-  const isLoading = useSelector(getOrderLoading);
+  const ingredients = useAppSelector(getConstructorIngredients);
+  const isLoading = useAppSelector(getOrderLoading);
   const [modalToggle, setModalToggle] = useState<boolean>(false);
 
   const handleSubmit = (): void => {

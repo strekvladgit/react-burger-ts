@@ -1,10 +1,12 @@
-import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppDispatch } from '@/hooks/use-app-dispatch';
+import AccountPage from '@/pages/account-page/account-page';
 import ForgotPasswordPage from '@/pages/forgot-password-page/forgot-password-page';
 import HomePage from '@/pages/home-page/home';
 import IngredientPage from '@/pages/ingredient-page/ingredient-page';
 import LoginPage from '@/pages/login-page/login-page';
 import NotFoundPage from '@/pages/not-found-page/not-found-page';
-import ProfilePage from '@/pages/profile-page/profile-page';
+import OrderFeedPage from '@/pages/order-feed-page/order-feed-page';
+import OrderPage from '@/pages/order-page/order-page';
 import RegisterPage from '@/pages/register-page/register-page';
 import ResetPasswordPage from '@/pages/reset-password-page/reset-password-page';
 import { loadIngredients } from '@/services/store/ingredients/actions';
@@ -13,7 +15,9 @@ import { useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import Modal from '../modal/modal';
+import Profile from '../profile/profile';
 import ProtectedRoute from '../protected-route/protected-route';
+import UsersFeed from '../users-feed/users-feed';
 import { AppHeader } from '@components/app-header/app-header';
 
 import styles from './app.module.css';
@@ -40,10 +44,14 @@ export const App = (): React.JSX.Element => {
           path="/profile"
           element={
             <ProtectedRoute>
-              <ProfilePage />
+              <AccountPage />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route index element={<Profile />} />
+          <Route path="orders" element={<UsersFeed />} />
+        </Route>
+        <Route path="/profile/orders/:number" element={<OrderPage />} />
         <Route
           path="/login"
           element={
@@ -77,6 +85,8 @@ export const App = (): React.JSX.Element => {
           }
         />
         <Route path="/ingredient/:id" element={<IngredientPage />} />
+        <Route path="/feed" element={<OrderFeedPage />} />
+        <Route path="/feed/:number" element={<OrderPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
 
@@ -92,6 +102,30 @@ export const App = (): React.JSX.Element => {
                 }}
               >
                 <IngredientPage />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feed/:number"
+            element={
+              <Modal
+                onClose={() => {
+                  void navigate(-1);
+                }}
+              >
+                <OrderPage />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:number"
+            element={
+              <Modal
+                onClose={() => {
+                  void navigate(-1);
+                }}
+              >
+                <OrderPage />
               </Modal>
             }
           />

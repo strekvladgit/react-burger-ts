@@ -1,17 +1,17 @@
 import AuthForm from '@/components/auth-form/auth-form';
 import Spinner from '@/components/spinner/spinner';
+import { useAppSelector } from '@/hooks/use-app-selector';
 import authApi from '@/services/api/auth-api';
 import { getIsLoading } from '@/services/store/user/reducers';
 import { getWithExpiry } from '@/utils/localStoragetWithExpiry';
 import { Button, Input } from '@krgaa/react-developer-burger-ui-components';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import type { FormEvent } from 'react';
 
 const ResetPasswordPage = (): React.JSX.Element => {
-  const isLoading = useSelector(getIsLoading);
+  const isLoading = useAppSelector(getIsLoading);
 
   const [passwordValue, setPasswordValue] = useState<string>('');
   const [tokenValue, setTokenValue] = useState<string>('');

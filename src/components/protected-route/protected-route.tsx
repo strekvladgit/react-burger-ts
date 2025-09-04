@@ -1,5 +1,5 @@
+import { useAppSelector } from '@/hooks/use-app-selector';
 import { getIsAuthChecked, getUser } from '@/services/store/user/reducers';
-import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import Spinner from '../spinner/spinner';
@@ -19,8 +19,8 @@ const ProtectedRoute = ({
   onlyUnAuth = false,
   children,
 }: TProtectedRoute): React.JSX.Element => {
-  const isAuthChecked = useSelector(getIsAuthChecked);
-  const user = useSelector(getUser);
+  const isAuthChecked = useAppSelector(getIsAuthChecked);
+  const user = useAppSelector(getUser);
   const location = useLocation();
 
   const locationState = location.state as TLocationState;
