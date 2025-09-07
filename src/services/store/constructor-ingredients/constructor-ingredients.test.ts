@@ -4,7 +4,6 @@ import { constructorSlice, initialState } from './reducers';
 
 describe('constructor-ingredients слайс', () => {
   it('должен возвращать начальное состояние при неизвестном action', () => {
-    console.log(constructorSlice.getInitialState());
     expect(constructorSlice.reducer(undefined, { type: '' })).toEqual(
       initialState
     );
