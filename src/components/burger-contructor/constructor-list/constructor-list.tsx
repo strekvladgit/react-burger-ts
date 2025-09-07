@@ -72,6 +72,7 @@ const ConstructorList = (): React.JSX.Element => {
       />
     ) : (
       <ConstructorSpace
+        dataTest="bun-top-space"
         extraClass={`${Item && Item.type === 'bun' ? styles.hover : ''}`}
         text="Выберите булку"
         type="top"
@@ -89,6 +90,7 @@ const ConstructorList = (): React.JSX.Element => {
       />
     ) : (
       <ConstructorSpace
+        dataTest="bun-bottom-space"
         extraClass={`${Item && Item.type === 'bun' ? styles.hover : ''}`}
         text="Выберите булку"
         type="bottom"
@@ -99,9 +101,13 @@ const ConstructorList = (): React.JSX.Element => {
   const renderedIngredients = (
     <>
       {bunsRendered[0]}
-      <div className={`${styles.constructor_scroll} mt-4 mb-4`}>
+      <div
+        data-testid="constructor-drop-area"
+        className={`${styles.constructor_scroll} mt-4 mb-4`}
+      >
         {otherIngredientsRendered ?? (
           <ConstructorSpace
+            dataTest="ingredients-space"
             extraClass={`${Item && Item.type !== 'bun' ? styles.hover : ''}`}
             text="Выберите ингридиент"
           />

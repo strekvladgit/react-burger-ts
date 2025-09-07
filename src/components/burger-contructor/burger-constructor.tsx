@@ -70,6 +70,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
           </div>
 
           <Button
+            data-testid="order-button"
             htmlType="button"
             type="primary"
             size="large"

@@ -1,3 +1,4 @@
+import { useAppSelector } from '@/hooks/use-app-selector';
 import {
   getBuns,
   getMainIngredients,
@@ -5,7 +6,6 @@ import {
 } from '@/services/store/ingredients/reducers';
 import { Tab } from '@krgaa/react-developer-burger-ui-components';
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
 
 import IngredientCart from './ingredient-cart/ingredient-cart';
 
@@ -15,9 +15,9 @@ import styles from './burger-ingredients.module.css';
 
 export const BurgerIngredients = (): React.JSX.Element => {
   const [currentTabIndex, setCurrentTabIndex] = useState<string>('bun');
-  const buns = useSelector(getBuns);
-  const mainIngredients = useSelector(getMainIngredients);
-  const sauces = useSelector(getSauces);
+  const buns = useAppSelector(getBuns);
+  const mainIngredients = useAppSelector(getMainIngredients);
+  const sauces = useAppSelector(getSauces);
 
   const targetRefs = useRef<HTMLElement[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -48,8 +48,14 @@ export const BurgerIngredients = (): React.JSX.Element => {
   const renderIngredients = (
     ingredients: TIngredient[]
   ): React.JSX.Element[] => {
-    return ingredients.map((current: TIngredient) => {
-      return <IngredientCart key={current._id} {...current} />;
+    return ingredients.map((current: TIngredient, index) => {
+      return (
+        <IngredientCart
+          testId={`ingredient-${current.type}-${index + 1}`}
+          key={current._id}
+          {...current}
+        />
+      );
     });
   };
 

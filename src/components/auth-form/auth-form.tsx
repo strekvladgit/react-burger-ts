@@ -14,7 +14,7 @@ const AuthForm = ({
   onSubmit,
 }: TAuthForm): React.JSX.Element => {
   return (
-    <main className={`${styles.wrap} pl-4 pr-4`}>
+    <main data-testid="auth-form" className={`${styles.wrap} pl-4 pr-4`}>
       <form className={styles.form} onSubmit={onSubmit}>
         <p className="text text_type_main-medium">{title}</p>
         {children}

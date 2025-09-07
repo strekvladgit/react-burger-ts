@@ -1,3 +1,4 @@
+import type {} from './cypress';
 /// <reference types="cypress" />
 // ***********************************************
 // This example commands.ts shows you how to
@@ -25,13 +26,23 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+
+Cypress.Commands.add('dragAndDrop', (sourceSelector, targetSelector) => {
+  cy.get(sourceSelector).trigger('dragstart');
+  cy.get(targetSelector).trigger('dragover').trigger('drop', { force: true });
+});
+
+Cypress.Commands.add('fillConstructor', () => {
+  cy.dragAndDrop(
+    '[data-testid="ingredient-bun-1"]',
+    '[data-testid="constructor-drop-area"]'
+  );
+  cy.dragAndDrop(
+    '[data-testid="ingredient-main-1"]',
+    '[data-testid="constructor-drop-area"]'
+  );
+  cy.dragAndDrop(
+    '[data-testid="ingredient-sauce-2"]',
+    '[data-testid="constructor-drop-area"]'
+  );
+});

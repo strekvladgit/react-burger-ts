@@ -4,7 +4,7 @@ import { onFeedError, onFeedMessage } from './actions';
 
 import type { TFeedState } from '@/utils/types';
 
-const initialState: TFeedState = {
+export const initialState: TFeedState = {
   orders: [],
   total: 0,
   totalToday: 0,

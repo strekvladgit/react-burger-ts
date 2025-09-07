@@ -33,7 +33,10 @@ const Modal = ({
       {modalRoot &&
         createPortal(
           <ModalOverlay onClose={onClose}>
-            <div className={`${styles.modal} p-10 ${extraClass}`}>
+            <div
+              data-testid="modal"
+              className={`${styles.modal} p-10 ${extraClass}`}
+            >
               <div className={styles.modal_header}>
                 <h3 className={`${styles.title} text text_type_main-large`}>
                   {title}
