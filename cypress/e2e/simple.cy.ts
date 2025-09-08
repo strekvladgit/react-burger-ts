@@ -5,8 +5,12 @@ import type {} from '../support/cypress';
 /// <reference types="cypress" />
 
 describe('Перетаскивание ингридиентов и создание заказа', () => {
+  const ORDER_BUTTON = '[data-testid="order-button"]';
+  const MODAL = '[data-testid="modal"]';
+  const MODAL_OVERLAY = '[data-testid="modal-overlay"]';
+
   beforeEach(() => {
-    cy.visit('http://localhost:5173/');
+    cy.visit('');
     cy.intercept('GET', `${BASE_URL}/ingredients`, {
       fixture: 'ingredients.json',
     }).as('getIngredients');
@@ -15,9 +19,9 @@ describe('Перетаскивание ингридиентов и создан�
   it('открывает модальное окно с информацией об ингридиенте', () => {
     cy.wait('@getIngredients');
     cy.get('[data-testid="ingredient-main-1"]').click();
-    cy.get('[data-testid="modal"]').should('exist');
-    cy.get('[data-testid="modal-overlay"]').click('topLeft');
-    cy.get('[data-testid="modal"]').should('not.exist');
+    cy.get(MODAL).should('exist');
+    cy.get(MODAL_OVERLAY).click('topLeft');
+    cy.get(MODAL).should('not.exist');
   });
 
   it('перетаскивает ингридиенты в конструктор', () => {
@@ -28,7 +32,7 @@ describe('Перетаскивание ингридиентов и создан�
   it('неавторизованный пользователь не может создать заказ (переходит на страницу логина)', () => {
     cy.wait('@getIngredients');
     cy.fillConstructor();
-    cy.get('[data-testid="order-button"]').click();
+    cy.get(ORDER_BUTTON).click();
     cy.url().should('include', '/login');
   });
 
@@ -39,12 +43,12 @@ describe('Перетаскивание ингридиентов и создан�
     }).as('login');
     cy.wait('@getIngredients');
     cy.fillConstructor();
-    cy.get('[data-testid="order-button"]').click();
+    cy.get(ORDER_BUTTON).click();
     cy.intercept('POST', `${BASE_URL}/orders`, {
       fixture: 'order.json',
     }).as('postOrder');
-    cy.get('[data-testid="modal"]').should('exist');
-    cy.get('[data-testid="modal-overlay"]').click('topLeft');
-    cy.get('[data-testid="modal"]').should('not.exist');
+    cy.get(MODAL).should('exist');
+    cy.get(MODAL_OVERLAY).click('topLeft');
+    cy.get(MODAL).should('not.exist');
   });
 });
