@@ -1,3 +1,4 @@
+import { useAppSelector } from '@/hooks/use-app-selector';
 import { getConstructorIngredients } from '@/services/store/constructor-ingredients/reducers';
 import {
   Counter,
@@ -5,19 +6,18 @@ import {
 } from '@krgaa/react-developer-burger-ui-components';
 import { useMemo } from 'react';
 import { useDrag } from 'react-dnd';
-import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import type { TIngredient } from '@/utils/types';
+import type { TIngredientTestId } from '@/utils/types';
 import type { Ref } from 'react';
 
 import styles from './ingredient-cart.module.css';
 
-const IngredientCart = (props: TIngredient): React.JSX.Element => {
+const IngredientCart = (props: TIngredientTestId): React.JSX.Element => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const ingredients = useSelector(getConstructorIngredients);
+  const ingredients = useAppSelector(getConstructorIngredients);
 
   const [{ isDrag }, dragRef] = useDrag({
     type: 'ingredients',
@@ -27,7 +27,7 @@ const IngredientCart = (props: TIngredient): React.JSX.Element => {
     }),
   });
 
-  const { _id, type, name, price, image, image_mobile } = props;
+  const { _id, type, name, price, image, image_mobile, testId } = props;
 
   const counter = useMemo((): number | null => {
     if (!ingredients) {
@@ -54,6 +54,7 @@ const IngredientCart = (props: TIngredient): React.JSX.Element => {
       ref={dragRef as unknown as Ref<HTMLDivElement>}
       className={`${styles.wrap} ${isDrag && styles.is_dragging}`}
       onClick={handleClick}
+      data-testid={testId}
     >
       <div className={`${styles.image_wrap} pl-4 pr-4`}>
         <picture>

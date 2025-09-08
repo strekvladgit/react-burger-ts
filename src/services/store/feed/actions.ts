@@ -11,4 +11,6 @@ export const onFeedMessage = createAction<
   TOrdersResponse,
   'feed/onFeedMessage'
 >('feed/onFeedMessage');
-export const onFeedError = createAction<string, 'feed/onerror'>('feed/onerror');
+export const onFeedError = createAction<string, 'feed/onFeedError'>(
+  'feed/onFeedError'
+);

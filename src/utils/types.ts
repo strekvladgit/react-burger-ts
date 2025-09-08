@@ -13,6 +13,10 @@ export type TIngredient = {
   __v: number;
 };
 
+export type TIngredientTestId = TIngredient & {
+  testId: string;
+};
+
 export type TModal = {
   title?: string;
   children: React.JSX.Element | string;

@@ -4,13 +4,13 @@ import { loadIngredients } from './actions';
 
 import type { TIngredient } from '@/utils/types';
 
-export type TIngredioentsState = {
+export type TIngredientsState = {
   ingredients: TIngredient[];
   loading: boolean;
   error: string | null;
 };
 
-const initialState: TIngredioentsState = {
+export const initialState: TIngredientsState = {
   ingredients: [],
   loading: false,
   error: null,
@@ -23,19 +23,19 @@ export const ingredientsSlice = createSlice({
   selectors: {
     getIngredients: (state) => state.ingredients,
     getBuns: createSelector(
-      (state: TIngredioentsState): TIngredient[] =>
+      (state: TIngredientsState): TIngredient[] =>
         ingredientsSlice.getSelectors().getIngredients(state),
       (ingredients: TIngredient[]): TIngredient[] =>
         ingredients.filter((ingredient) => ingredient.type === 'bun')
     ),
     getMainIngredients: createSelector(
-      (state: TIngredioentsState): TIngredient[] =>
+      (state: TIngredientsState): TIngredient[] =>
         ingredientsSlice.getSelectors().getIngredients(state),
       (ingredients: TIngredient[]): TIngredient[] =>
         ingredients.filter((ingredient) => ingredient.type === 'main')
     ),
     getSauces: createSelector(
-      (state: TIngredioentsState): TIngredient[] =>
+      (state: TIngredientsState): TIngredient[] =>
         ingredientsSlice.getSelectors().getIngredients(state),
       (ingredients: TIngredient[]): TIngredient[] =>
         ingredients.filter((ingredient) => ingredient.type === 'sauce')

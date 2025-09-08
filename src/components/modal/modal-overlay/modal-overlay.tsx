@@ -24,7 +24,7 @@ const ModalOverlay = ({ onClose, children }: TModal): React.JSX.Element => {
   }, []);
 
   return (
-    <div ref={modalRef} className={styles.overlay}>
+    <div data-testid="modal-overlay" ref={modalRef} className={styles.overlay}>
       {children}
     </div>
   );

@@ -39,7 +39,7 @@ export const signUp = createAsyncThunk(
   }
 );
 
-export const checkAuth = createAsyncThunk('user/getUser', async () => {
+export const checkAuth = createAsyncThunk('user/checkAuth', async () => {
   if (localStorage.getItem('accessToken')) {
     return authApi.getUser().then(({ user }) => user);
   }
