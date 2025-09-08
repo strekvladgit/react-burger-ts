@@ -6,11 +6,7 @@ import type {} from '../support/cypress';
 
 describe('Перетаскивание ингридиентов и создание заказа', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:5173/', {
-      onBeforeLoad(win) {
-        win.localStorage.setItem('accessToken', 'test-token');
-      },
-    });
+    cy.visit('http://localhost:5173/');
     cy.intercept('GET', `${BASE_URL}/ingredients`, {
       fixture: 'ingredients.json',
     }).as('getIngredients');
@@ -37,6 +33,7 @@ describe('Перетаскивание ингридиентов и создан�
   });
 
   it('авторизованный пользователь может создать заказ (открывается модальное окно с заказом)', () => {
+    window.localStorage.setItem('accessToken', 'test-token');
     cy.intercept('GET', `${BASE_URL}/auth/user`, {
       fixture: 'user.json',
     }).as('login');
