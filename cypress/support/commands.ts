@@ -46,3 +46,9 @@ Cypress.Commands.add('fillConstructor', () => {
     '[data-testid="constructor-drop-area"]'
   );
 });
+
+Cypress.Commands.add('checkModal', () => {
+  cy.get('[data-testid="modal"]').should('exist');
+  cy.get('[data-testid="modal-overlay"]').click('topLeft');
+  cy.get('[data-testid="modal"]').should('not.exist');
+});

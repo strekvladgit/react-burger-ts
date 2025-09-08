@@ -6,8 +6,6 @@ import type {} from '../support/cypress';
 
 describe('Перетаскивание ингридиентов и создание заказа', () => {
   const ORDER_BUTTON = '[data-testid="order-button"]';
-  const MODAL = '[data-testid="modal"]';
-  const MODAL_OVERLAY = '[data-testid="modal-overlay"]';
 
   beforeEach(() => {
     cy.visit('/');
@@ -19,9 +17,7 @@ describe('Перетаскивание ингридиентов и создан�
   it('открывает модальное окно с информацией об ингридиенте', () => {
     cy.wait('@getIngredients');
     cy.get('[data-testid="ingredient-main-1"]').click();
-    cy.get(MODAL).should('exist');
-    cy.get(MODAL_OVERLAY).click('topLeft');
-    cy.get(MODAL).should('not.exist');
+    cy.checkModal();
   });
 
   it('перетаскивает ингридиенты в конструктор', () => {
@@ -47,8 +43,6 @@ describe('Перетаскивание ингридиентов и создан�
     cy.intercept('POST', `${BASE_URL}/orders`, {
       fixture: 'order.json',
     }).as('postOrder');
-    cy.get(MODAL).should('exist');
-    cy.get(MODAL_OVERLAY).click('topLeft');
-    cy.get(MODAL).should('not.exist');
+    cy.checkModal();
   });
 });
