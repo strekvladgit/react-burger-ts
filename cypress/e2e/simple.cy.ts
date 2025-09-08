@@ -10,7 +10,7 @@ describe('Перетаскивание ингридиентов и создан�
   const MODAL_OVERLAY = '[data-testid="modal-overlay"]';
 
   beforeEach(() => {
-    cy.visit('');
+    cy.visit('/');
     cy.intercept('GET', `${BASE_URL}/ingredients`, {
       fixture: 'ingredients.json',
     }).as('getIngredients');
